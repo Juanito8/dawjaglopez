@@ -1,7 +1,7 @@
 package adapter;
 
 public class Translator {
-    private String translate(String word) {
+    public String translate(String word) {
        String palabra=null;
        switch (word) {
           case "hola":palabra="hello";
