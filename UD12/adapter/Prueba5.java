@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class Prueba5 {
-	
 	public static void main (String[]args) {
 		
+
 		FileReader fr = null;
 		BufferedReader  br = null;		
 		String linea = "";
