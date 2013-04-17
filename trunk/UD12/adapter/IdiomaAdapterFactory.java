@@ -4,16 +4,27 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class IdiomaAdapterFactory {
-	public static ITraductor b;
-	public static ITraductor getITraductor(){
-		ITraductor traductor = null;
-		if(b==null){
+	private static IdiomaAdapterFactory i; // singleton objeto
+	public ITraductor traductor;
+	
+	public static IdiomaAdapterFactory getIdiomaAdapterFactory(){ // Singleton Direccion 
+		if(i==null){
+		i=new IdiomaAdapterFactory();
+		}
+		return i;
+	}
+	
+	private IdiomaAdapterFactory(){ // Singleton Constructor
+	}
+	
+	public ITraductor getITraductor(){
+		if(traductor==null){
 			FileReader fr = null;
 			BufferedReader  br = null;		
 			String linea = "";
 			
 			try {
-				fr = new FileReader("UD12/adapter/adaptador.txt");
+				fr = new FileReader("UD12/adapter/adaptador.ini");
 				br = new BufferedReader(fr);
 				
 				linea = br.readLine();
@@ -37,14 +48,11 @@ public class IdiomaAdapterFactory {
 			
 			try {
 				traductor = ((ITraductor)Class.forName(nombreAdaptador).newInstance());
-				traductor=b;
 			} 
 			catch (Exception e) {
 				
 			}
-		}
-		else{
-		}
+			}
 		return traductor;
 	}
 }
