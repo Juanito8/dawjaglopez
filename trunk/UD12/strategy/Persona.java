@@ -1,14 +1,14 @@
 package strategy;
 
+
 public class Persona {
 	private String nombre="";
-	private ISaludoStrategy s;
+	private FactoryStrategyPersona n= FactoryStrategyPersona.getFactoryStrategyPersona();
+	private CambioCriterio n2=CambioCriterio.getCambioCriterio();
+	private ISaludoStrategy s=n.getISaludoStrategy();
+	
 	public Persona(String nombres){
 		this.nombre=nombres;
-		if(s==null){
-			s=new SaludoAmableStrategy();
-		}
-		s.saludar(this);
 	}
 	public void saludar(){
 		s.saludar(this);
