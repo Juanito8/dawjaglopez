@@ -13,10 +13,12 @@ import javax.xml.soap.Text;
 public class Main8 extends JFrame{
 	private static int largo;
 	private static int ancho;
+	private static int tlargo;
+	private static int tancho;
 	private JPanel j;
 	private void inicializar(){
 		setLocation(ancho, largo);
-		setSize(400, 400);
+		setSize(tlargo, tancho);
 		setTitle("Ventana");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -37,8 +39,8 @@ public class Main8 extends JFrame{
 	public void centrar(){
 		int vlargo=Toolkit.getDefaultToolkit().getScreenSize().height;
 		int vancho=Toolkit.getDefaultToolkit().getScreenSize().width;
-		int tancho=200;
-		int tlargo=200;
+		tancho=200;
+		tlargo=200;
 		largo=vlargo/2 - tlargo/2;
 		ancho=vancho/2 - tancho/2;
 	}
