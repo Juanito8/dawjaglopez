@@ -36,9 +36,7 @@ public class Main9 extends JFrame{
 	}
 	public void espera(){
 		for(int i=0;i<1000;i++){
-			for(int m=0;m<1000000;m++){
-				for(int m1=0;m1<100000;m1++){
-				}
+			for(int m=0;m<10000;m++){
 			}
 		}
 	}
