@@ -1,17 +1,17 @@
 package menu;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-public class Main9 extends JFrame{
+public class Main9 extends JFrame implements ActionListener{
 	private static int largo;
 	private static int ancho;
 	private static int tlargo;
@@ -64,23 +64,66 @@ public class Main9 extends JFrame{
 			// Submenu Archivo
 			JMenuItem ma=new JMenuItem("Abrir");
 			m.add(ma);
+			ma.setActionCommand("abrir");
+			
 			JMenuItem ma1=new JMenuItem("Guardar");
-			m.add(ma1);		
+			m.add(ma1);
+			ma1.setActionCommand("guardar");
 			
 			JMenu ma2=new JMenu("Guardar como...");
 			m.add(ma2);
 			JMenuItem ma23=new JMenuItem("txt");
 			ma2.add(ma23);
+			ma23.setActionCommand("txt");
 			JMenuItem ma25=new JMenuItem("pdf");
 			ma2.add(ma25);
+			ma25.setActionCommand("pdf");
+			
+			ma.addActionListener(this);
+			ma1.addActionListener(this);
+			ma23.addActionListener(this);
+			ma25.addActionListener(this);
 			
 			// Submenu Editar
 			JMenuItem m11=new JMenuItem("Cortar");
 			m1.add(m11);
+			m11.setActionCommand("cortar");
+			
 			JMenuItem m12=new JMenuItem("Copiar");
 			m1.add(m12);
+			m12.setActionCommand("copiar");
+			
 			JMenuItem m13=new JMenuItem("Pegar");
 			m1.add(m13);
+			m13.setActionCommand("pegar");
 			
+			
+			m11.addActionListener(this);
+			m12.addActionListener(this);
+			m13.addActionListener(this);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("abrir")){
+			System.out.println("Abrir");
+		}
+		else if(e.getActionCommand().equals("guardar")){
+			System.out.println("Guardar");
+		}
+		else if(e.getActionCommand().equals("txt")){
+			System.out.println("txt");
+		}
+		else if(e.getActionCommand().equals("pdf")){
+			System.out.println("pdf");
+		}
+		else if(e.getActionCommand().equals("cortar")){
+			System.out.println("cortar");
+		}
+		else if(e.getActionCommand().equals("copiar")){
+			System.out.println("copiar");
+		}
+		else if(e.getActionCommand().equals("pegar")){
+			System.out.println("pegar");
+		}
 	}
 }
