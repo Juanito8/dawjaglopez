@@ -73,8 +73,9 @@ public class Main4 extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("s")){
 			mensaje.setText("Saludo");
+			//System.out.println(e);
 		}
-		if(e.getActionCommand().equals("d")){
+		else if(e.getActionCommand().equals("d")){
 			mensaje.setText("Adios");
 		}
 	}
