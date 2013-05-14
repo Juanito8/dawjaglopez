@@ -197,16 +197,16 @@ public class Calculadora extends JFrame implements ActionListener{
 		System.out.println(numero);
 		break;
 		
-		case "sumar": num1=Integer.parseInt(numero);mensaje.setText(num1+ " + ");numero="";matematico="+";
+		case "sumar": if(matematico.equals("")){num1=Integer.parseInt(numero);}mensaje.setText(num1+ " + ");numero="";matematico="+";
 		System.out.println(num1);
 		break;
-		case "restar": num1=Integer.parseInt(numero);mensaje.setText(num1+ " - ");numero="";matematico="-";
+		case "restar": if(matematico.equals("")){num1=Integer.parseInt(numero);}mensaje.setText(num1+ " - ");numero="";matematico="-";
 		System.out.println(num1);
 		break;
-		case "multiplicar": num1=Integer.parseInt(numero);mensaje.setText(num1+ " * ");numero="";matematico="*";
+		case "multiplicar": if(matematico.equals("")){num1=Integer.parseInt(numero);}mensaje.setText(num1+ " * ");numero="";matematico="*";
 		System.out.println(num1);
 		break;
-		case "dividir": num1=Integer.parseInt(numero);mensaje.setText(num1+ " / ");numero="";matematico="/";
+		case "dividir": if(matematico.equals("")){num1=Integer.parseInt(numero);}mensaje.setText(num1+ " / ");numero="";matematico="/";
 		System.out.println(num1);
 		break;
 		
@@ -227,7 +227,7 @@ public class Calculadora extends JFrame implements ActionListener{
 			String divi=Float.toString(dividir());
 			mensaje.setText(divi);
 		}
-		System.out.println(num1+" "+matematico+" "+num2+" = "+mensaje.getText());numero="";
+		System.out.println(num1+" "+matematico+" "+num2+" = "+mensaje.getText());numero="";matematico="";
 		break;
 		case "borrar": numero="";mensaje.setText(numero);
 		System.out.println(numero);
