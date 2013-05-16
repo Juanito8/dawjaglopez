@@ -119,6 +119,13 @@ public class Buscaminas extends JFrame implements ActionListener{
 		}
 		return 2;
 	}
+	public int testNumMinasAlrededor(int i,int m){
+		return numMinasAlrededor(i, m);
+	}
+	
+	public void setArrayMinas(boolean[][] minas){
+		minas=this.arrayMinas;
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()){
