@@ -8,7 +8,7 @@ import org.junit.Test;
 public class BuscaminasTest {
 	private Buscaminas b;
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor1(){
@@ -25,11 +25,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(3, 1);
+		int numMinas=b.testNumMinasAlrededor(1, 3);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor2(){
@@ -46,11 +46,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(4, 1);
+		int numMinas=b.testNumMinasAlrededor(1, 4);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor3(){
@@ -67,11 +67,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(5, 1);
+		int numMinas=b.testNumMinasAlrededor(1, 5);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor4(){
@@ -88,11 +88,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(3, 2);
+		int numMinas=b.testNumMinasAlrededor(2, 3);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor5(){
@@ -109,11 +109,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(5, 2);
+		int numMinas=b.testNumMinasAlrededor(2, 5);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor6(){
@@ -134,7 +134,7 @@ public class BuscaminasTest {
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor7(){
@@ -151,11 +151,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(4, 3);
+		int numMinas=b.testNumMinasAlrededor(3, 4);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor8(){
@@ -172,11 +172,11 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(5, 3);
+		int numMinas=b.testNumMinasAlrededor(3, 5);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
-	 * Mina en i-4 y m-2
+	 * Mina en i-2 y m-4
 	 */
 	@Test
 	public void testnumMinasAlrededor9(){
@@ -235,7 +235,7 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(8, 0);
+		int numMinas=b.testNumMinasAlrededor(0, 8);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
@@ -256,7 +256,7 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,true,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(6, 8);
+		int numMinas=b.testNumMinasAlrededor(8, 6);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
@@ -277,7 +277,7 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(8, 7);
+		int numMinas=b.testNumMinasAlrededor(7, 8);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
@@ -298,7 +298,7 @@ public class BuscaminasTest {
 				{false,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(0, 8);
+		int numMinas=b.testNumMinasAlrededor(8, 0);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	/**
@@ -319,7 +319,7 @@ public class BuscaminasTest {
 				{true,false,false,false,false,false,false,false,false},
 			};
 		b.setArrayMinas(arrayMinas);
-		int numMinas=b.testNumMinasAlrededor(1, 8);
+		int numMinas=b.testNumMinasAlrededor(8, 1);
 		assertEquals("Mina alrededor 1",1,numMinas);
 	}
 	@Before
