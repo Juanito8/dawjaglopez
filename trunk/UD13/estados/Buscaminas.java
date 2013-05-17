@@ -1,6 +1,7 @@
 package estados;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -35,8 +36,8 @@ public class Buscaminas extends JFrame implements ActionListener{
 	public void centrar(){
 		int vlargo=Toolkit.getDefaultToolkit().getScreenSize().height;
 		int vancho=Toolkit.getDefaultToolkit().getScreenSize().width;
-		tancho=300;
-		tlargo=300;
+		tancho=500;
+		tlargo=500;
 		largo=vlargo/2 - tlargo/2;
 		ancho=vancho/2 - tancho/2;
 	}
@@ -91,7 +92,6 @@ public class Buscaminas extends JFrame implements ActionListener{
 			
 			if(!arrayMinas[numero][numero2]){
 				arrayMinas[numero][numero2]=true;
-				numMinasAlrededor(numero, numero2);
 			}
 			x++;
 		}
@@ -106,25 +106,24 @@ public class Buscaminas extends JFrame implements ActionListener{
 		}
 	}
 	private int numMinasAlrededor(int i,int m){
-
-		for(i=0;i<3;i++){
-			for(m=0; m < 3;m++){
-				System.out.print(arrayMinas[i][m]?" 1":" -");	
+		int numMinas=0;
+		for(int x=i-1;x<=i+1;x++){
+			for(int n=m-1; n <= m+1;n++){
+				if(x>=0 && x<9 && n>=0 && n<9 && !(x==i && n==m) && arrayMinas[x][n]){
+					System.out.println(numMinas);
+					numMinas++;
+				}
 			}
 		}
-		for(i=1;i>-1;i--){
-			for(m=1; m > -1;m--){
-				System.out.print(arrayMinas[i][m]?" 1":" -");
-			}
-		}
-		return 2;
+		
+		return numMinas;
 	}
 	public int testNumMinasAlrededor(int i,int m){
 		return numMinasAlrededor(i, m);
 	}
 	
 	public void setArrayMinas(boolean[][] minas){
-		minas=this.arrayMinas;
+		this.arrayMinas=minas;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -133,10 +132,18 @@ public class Buscaminas extends JFrame implements ActionListener{
 			System.out.println("Borrar");
 		break;
 		default:
-			System.out.println(e.getActionCommand());
+			int fila=Integer.parseInt(e.getActionCommand().split("-")[0]);
+			int colum=Integer.parseInt(e.getActionCommand().split("-")[1]);
+				if(arrayMinas[fila][colum]){
+					((JButton)(e.getSource())).setBackground(Color.red);
+					System.out.println("PUM");
+				}
+				else{
+					((JButton)(e.getSource())).setText(Integer.toString(numMinasAlrededor(fila, colum)));
+					((JButton)(e.getSource())).setEnabled(false);
+				}
 			((JButton)(e.getSource())).setEnabled(false);
 		break;
 		}
-		
 	}
 }
