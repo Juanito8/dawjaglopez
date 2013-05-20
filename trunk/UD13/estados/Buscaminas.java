@@ -139,8 +139,13 @@ public class Buscaminas extends JFrame implements ActionListener{
 					System.out.println("PUM");
 				}
 				else{
+					if(numMinasAlrededor(fila, colum)==0){
+						((JButton)(e.getSource())).setEnabled(false);
+					}
+					else{
 					((JButton)(e.getSource())).setText(Integer.toString(numMinasAlrededor(fila, colum)));
 					((JButton)(e.getSource())).setEnabled(false);
+					}
 				}
 			((JButton)(e.getSource())).setEnabled(false);
 		break;
