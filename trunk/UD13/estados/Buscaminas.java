@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class Buscaminas extends JFrame implements ActionListener{
 	private static int largo;
@@ -25,6 +26,8 @@ public class Buscaminas extends JFrame implements ActionListener{
 	private boolean[][] arrayMinas;
 	private int numero;
 	private int numero2;
+	private JLabel n;
+	private JPanel j1;
 	public Buscaminas(){
 		centrar();
 		menu();
@@ -54,11 +57,19 @@ public class Buscaminas extends JFrame implements ActionListener{
 		
 		// Agregar Panel
 		
+		j1=new JPanel(new GridLayout());
+		j1.setLayout(new GridLayout(1, 2));
+		j.add(j1,BorderLayout.NORTH);
 		
 		b=new JButton("Borrar");
 		b.addActionListener(this);
-		j.add(b,BorderLayout.NORTH);
+		j1.add(b);
 		b.setActionCommand("borrado");
+		
+		n=new JLabel();
+		n.setText("");
+		j1.add(n);
+		
 		
 		j2=new JPanel();
 		j2.setLayout(new GridLayout(9,9));
@@ -107,13 +118,18 @@ public class Buscaminas extends JFrame implements ActionListener{
 	}
 	private int numMinasAlrededor(int i,int m){
 		int numMinas=0;
+		if(arrayMinas[i][m]){
+			numMinas=9;
+		}
+		else{
 		for(int x=i-1;x<=i+1;x++){
 			for(int n=m-1; n <= m+1;n++){
 				if(x>=0 && x<9 && n>=0 && n<9 && !(x==i && n==m) && arrayMinas[x][n]){
-					System.out.println(numMinas);
+					//System.out.println(numMinas);
 					numMinas++;
 				}
 			}
+		}
 		}
 		
 		return numMinas;
@@ -125,10 +141,34 @@ public class Buscaminas extends JFrame implements ActionListener{
 	public void setArrayMinas(boolean[][] minas){
 		this.arrayMinas=minas;
 	}
+	public void limpiar(int i,int m){
+		arrayBotones[i][m].setEnabled(false);
+		if(numMinasAlrededor(i, m)!=0){
+			arrayBotones[i][m].setText(Integer.toString(numMinasAlrededor(i, m)));
+		}
+		for(int x=-1;x<=1;x++){
+			for(int n=-1; n <=1;n++){
+				if(i+x>=0 && i+x<9 && m+n>=0 && m+n<9 && arrayBotones[i+x][m+n].isEnabled()){
+					if(numMinasAlrededor(i+x, m+n)==0){
+						limpiar(i+x, m+n);
+					}
+					else{
+						if(numMinasAlrededor(i+x, m+n)!=9){
+							arrayBotones[i+x][m+n].setEnabled(false);
+							arrayBotones[i+x][m+n].setText(Integer.toString(numMinasAlrededor(i+x, m+n)));
+						}
+					}
+				}
+			}
+			
+	}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()){
 		case "borrado":
+			setVisible(false);
+			new Buscaminas();
 			System.out.println("Borrar");
 		break;
 		default:
@@ -139,13 +179,7 @@ public class Buscaminas extends JFrame implements ActionListener{
 					System.out.println("PUM");
 				}
 				else{
-					if(numMinasAlrededor(fila, colum)==0){
-						((JButton)(e.getSource())).setEnabled(false);
-					}
-					else{
-					((JButton)(e.getSource())).setText(Integer.toString(numMinasAlrededor(fila, colum)));
-					((JButton)(e.getSource())).setEnabled(false);
-					}
+					limpiar(fila, colum);
 				}
 			((JButton)(e.getSource())).setEnabled(false);
 		break;
