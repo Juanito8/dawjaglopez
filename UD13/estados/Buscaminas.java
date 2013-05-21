@@ -28,10 +28,13 @@ public class Buscaminas extends JFrame implements ActionListener{
 	private int numero2;
 	private JLabel n;
 	private JPanel j1;
+	private JLabel l;
+	private int vuelta=1;
 	public Buscaminas(){
 		centrar();
 		menu();
 		minas();
+		tiempoBuscaminas();
 	}
 	public static void main(String[] args) {
 		new Buscaminas();
@@ -61,13 +64,17 @@ public class Buscaminas extends JFrame implements ActionListener{
 		j1.setLayout(new GridLayout(1, 2));
 		j.add(j1,BorderLayout.NORTH);
 		
+		l=new JLabel();
+		l.setText("Tiempo: ");
+		j1.add(l);
+		
 		b=new JButton("Borrar");
 		b.addActionListener(this);
 		j1.add(b);
 		b.setActionCommand("borrado");
 		
 		n=new JLabel();
-		n.setText("");
+		n.setText("Numero de casillas: "+81);
 		j1.add(n);
 		
 		
@@ -163,6 +170,53 @@ public class Buscaminas extends JFrame implements ActionListener{
 			
 	}
 	}
+	public void minasTotal(){
+		int total=81;
+		for(int x=0;x<9;x++){
+			for(int m=0;m<9;m++){
+				if(arrayBotones[x][m].isEnabled()==false){
+						total=total-1;
+						n.setText("Numero de casillas: "+Integer.toString(total));
+					}
+				}
+			}
+	}
+	public void tiempoBuscaminas(){
+		try {
+			int minutos=0;
+			int segundos=0;
+			int segundos2=0;
+			int minutos2=0;
+			if(vuelta==1){
+			for(minutos=0;minutos<60;minutos++){
+				minutos2++;
+				for(segundos=0;segundos<60;segundos++){
+						Thread.sleep(1000);
+						System.out.println(minutos+" "+segundos);
+						l.setText("Tiempo: "+Integer.toString(minutos)+":"+Integer.toString(segundos));
+						segundos2++;
+						
+				for(int i=0;i<9;i++){
+					for(int m=0; m < 9;m++){
+						if(arrayMinas[i][m]==true && arrayBotones[i][m].isEnabled()==false){
+							vuelta=2;
+							tiempoBuscaminas();
+							minutos=60;
+							segundos=60;
+						}
+						}
+					}
+				}
+			}
+			}
+			if(vuelta==2){
+				l.setText("Tiempo: "+Integer.toString(minutos2-1)+":"+Integer.toString(segundos2));
+				}
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()){
@@ -177,11 +231,14 @@ public class Buscaminas extends JFrame implements ActionListener{
 				if(arrayMinas[fila][colum]){
 					((JButton)(e.getSource())).setBackground(Color.red);
 					System.out.println("PUM");
+					vuelta=2;
+					tiempoBuscaminas();
 				}
 				else{
 					limpiar(fila, colum);
 				}
 			((JButton)(e.getSource())).setEnabled(false);
+			minasTotal();
 		break;
 		}
 	}
