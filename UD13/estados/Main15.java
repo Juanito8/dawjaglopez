@@ -1,21 +1,19 @@
 package estados;
 
-import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Main15 extends JFrame implements ActionListener{
+public class Main15 extends JFrame implements MouseListener{
 	private static int largo;
 	private static int ancho;
 	private static int tlargo;
 	private static int tancho;
-	private JPanel j;
-	private JButton m;
+	private Grafico j;
 	public Main15(){
 		centrar();
 		menu();
@@ -38,29 +36,42 @@ public class Main15 extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Iniciar panel
-		j=new Grafico();
-		
-		m=new JButton();
-		m.setBounds(201, 301, 199, 49);
-		m.setBorderPainted(false);
-		m.setBackground(Color.white);
-		m.setActionCommand("1");
-		this.add(m);
-		
+		j=new Grafico(tancho, tlargo);
 		this.add(j);
-
-		m.addActionListener(this);
+		j.addMouseListener(this);
+		j.repaint();
+		
 		setVisible(true);
 
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		for(int i=20;i<200;i=i+20){
-			m.setBounds(200, 300, i, 50);
-			m.setBackground(Color.green);	
+	public void mouseClicked(MouseEvent e) {
+		controlarClick(e.getX(),e.getY());
+		repaint();
+	}
+	private void controlarClick(int x, int y) {
+		if (j.estaDentroElClic(x,y)) {
+			j.setRelleno(true);
 		}
-		m.setBounds(200, 300, 200, 50);
-		m.setBackground(Color.darkGray);
-		m.setEnabled(false);
+		else {
+			j.setRelleno(false);
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
 	}
 }
