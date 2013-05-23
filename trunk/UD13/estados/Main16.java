@@ -1,14 +1,19 @@
 package estados;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +33,9 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 	private JPanel j2;
 	private String ejex;
 	private String ejey;
+	private Collection<IFigura> figuras=new ArrayList <IFigura>();
+	private JCheckBox c;
+	private JCheckBox c1;
 	public Main16(){
 		centrar();
 		menu();
@@ -59,7 +67,7 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 		
 		
 		j1=new JPanel(new GridLayout());
-		j1.setLayout(new GridLayout(6, 1));
+		j1.setLayout(new GridLayout(7, 1));
 		j.add(j1, BorderLayout.EAST);
 		
 		j2=new JPanel(new GridLayout());
@@ -77,7 +85,9 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 		b1.setActionCommand("1");
 		
 		b2=new JButton("Borrar");
+		b2.addActionListener(this);
 		j1.add(b2);
+		b2.setActionCommand("borrar");
 		
 		n=new JLabel("x: ");
 		j1.add(n);
@@ -85,11 +95,24 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 		n2=new JLabel("y: ");
 		j1.add(n2);
 		
+		c=new JCheckBox("Solo Cuadrados");
+		c.addActionListener(this);
+		j1.add(c);
+		c.setActionCommand("cuadrados");
+		
+		c1=new JCheckBox("Solo Circulos");
+		c1.addActionListener(this);
+		j1.add(c1);
+		c1.setActionCommand("circulos");
+		
+		
 	}
 	@Override
 	public void mouseClicked(MouseEvent m) {
 		n.setText("x: "+Integer.toString(m.getX()));
 		n2.setText("y: "+Integer.toString(m.getY()));
+		ejex=Integer.toString(m.getX());
+		ejey=Integer.toString(m.getY());
 	}
 	@Override
 	public void mouseEntered(MouseEvent m) {
@@ -111,9 +134,28 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("0")){
 			System.out.println("Cuadrado");
+			figuras.add(new Cuadrado(Integer.parseInt(ejex), Integer.parseInt(ejey)));
 		}
 		else if(e.getActionCommand().equals("1")){
 			System.out.println("Circulo");
+			figuras.add(new Circulo(Integer.parseInt(ejex), Integer.parseInt(ejey)));
+		}
+		else if(e.getActionCommand().equals("borrar")){
+			this.add(j, BorderLayout.CENTER);
+			repaint();
+		}
+		
+		if(e.getActionCommand().equals("0") || e.getActionCommand().equals("1") || e.getActionCommand().equals("circulos")){
+			for(IFigura m:figuras){
+				m.figura();
+				j.add((Component)m,BorderLayout.CENTER);
+				if(e.getActionCommand().equals("cuadrado")){
+					
+				}
+				if(e.getActionCommand().equals("circulos")){
+					
+				}
+			}
 		}
 	}
 }
