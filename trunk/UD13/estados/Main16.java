@@ -14,11 +14,14 @@ import java.util.Comparator;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-public class Main16 extends JFrame implements MouseListener, ActionListener{
+public class Main16 extends JFrame implements MouseListener, ActionListener, ChangeListener{
 	private static int largo;
 	private static int ancho;
 	private static int tlargo;
@@ -31,8 +34,8 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 	private JLabel n;
 	private JLabel n2;
 	private JPanel j2;
-	private String ejex;
-	private String ejey;
+	private int ejex;
+	private int ejey;
 	private Collection<IFigura> figuras=new ArrayList <IFigura>();
 	private JCheckBox c;
 	private JCheckBox c1;
@@ -97,11 +100,13 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 		
 		c=new JCheckBox("Solo Cuadrados");
 		c.addActionListener(this);
+		c.addChangeListener(this);
 		j1.add(c);
 		c.setActionCommand("cuadrados");
 		
 		c1=new JCheckBox("Solo Circulos");
 		c1.addActionListener(this);
+		c1.addChangeListener(this);
 		j1.add(c1);
 		c1.setActionCommand("circulos");
 		
@@ -111,8 +116,8 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 	public void mouseClicked(MouseEvent m) {
 		n.setText("x: "+Integer.toString(m.getX()));
 		n2.setText("y: "+Integer.toString(m.getY()));
-		ejex=Integer.toString(m.getX());
-		ejey=Integer.toString(m.getY());
+		ejex=m.getX();
+		ejey=m.getY();
 	}
 	@Override
 	public void mouseEntered(MouseEvent m) {
@@ -134,11 +139,11 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("0")){
 			System.out.println("Cuadrado");
-			figuras.add(new Cuadrado(Integer.parseInt(ejex), Integer.parseInt(ejey)));
+			figuras.add(new Cuadrado(ejex, ejey));
 		}
 		else if(e.getActionCommand().equals("1")){
 			System.out.println("Circulo");
-			figuras.add(new Circulo(Integer.parseInt(ejex), Integer.parseInt(ejey)));
+			figuras.add(new Circulo(ejex, ejey));
 		}
 		else if(e.getActionCommand().equals("borrar")){
 			this.add(j, BorderLayout.CENTER);
@@ -148,13 +153,20 @@ public class Main16 extends JFrame implements MouseListener, ActionListener{
 		if(e.getActionCommand().equals("0") || e.getActionCommand().equals("1") || e.getActionCommand().equals("circulos")){
 			for(IFigura m:figuras){
 				m.figura();
-				j.add((Component)m,BorderLayout.CENTER);
-				if(e.getActionCommand().equals("cuadrado")){
-					
-				}
-				if(e.getActionCommand().equals("circulos")){
-					
-				}
+				j.add((JPanel)m,BorderLayout.CENTER);
+			}
+		}
+	}
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		String nombre=((JComponent)(e.getSource())).getName();
+		for(IFigura m:figuras){
+			if(nombre.equals("cuadrados")){
+				((Cuadrado)(m)).verFigura();
+			}
+			else if(nombre.equals("circulos")){
+				((Circulo)(m)).verFigura();
+
 			}
 		}
 	}

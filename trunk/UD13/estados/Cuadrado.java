@@ -14,6 +14,7 @@ public class Cuadrado extends JPanel implements IFigura{
 	public Cuadrado(int ancho, int largo) {
 		this.x=ancho;
 		this.y=largo;
+		generarCuadrado();
 	}
 
 	public void paint(Graphics g){
@@ -24,12 +25,18 @@ public class Cuadrado extends JPanel implements IFigura{
 	public void generarCuadrado(){
 		this.ancho=50;
 		this.alto=50;
+		repaint();
 
 	}
 
 	@Override
 	public void figura() {
-		generarCuadrado();
+		new Cuadrado(x, y);
+	}
+
+	@Override
+	public void verFigura() {
+		repaint();
 	}
 	
 

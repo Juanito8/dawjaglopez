@@ -13,6 +13,7 @@ public class Circulo extends JPanel implements IFigura{
 	public Circulo(int ancho, int largo) {
 		this.x=ancho;
 		this.y=largo;
+		generarCirculo();
 	}
 
 	public void paint(Graphics g){
@@ -23,12 +24,18 @@ public class Circulo extends JPanel implements IFigura{
 	public void generarCirculo(){
 		this.ancho=50;
 		this.alto=50;
-
+		repaint();
 	}
+	
 
 	@Override
 	public void figura() {
-		generarCirculo();
+		new Circulo(x, y);
+	}
+
+	@Override
+	public void verFigura() {
+		repaint();
 	}
 
 }
