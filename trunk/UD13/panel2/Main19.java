@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Main19 extends JFrame implements ActionListener{
@@ -30,11 +31,13 @@ public class Main19 extends JFrame implements ActionListener{
 	private JLabel l3;
 	private JTextField t3;
 	private JButton b1;
-	private JLabel ln;
 	private JLabel l4;
 	private JLabel t4;
 	private JLabel l5;
 	private JLabel t5;
+	private JLabel l6;
+	private JLabel l8;
+	private JTable j3;
 	public Main19(){
 		centrar();
 		menu();
@@ -70,6 +73,9 @@ public class Main19 extends JFrame implements ActionListener{
 		j2=new JPanel(new GridLayout(4, 2));
 		p.addTab("Consultar", j2);
 		
+		j3=new JTable();
+		p.addTab("Tabla", j3);
+		
 		// Añadir botones y texto
 		
 		// Insertar
@@ -103,6 +109,9 @@ public class Main19 extends JFrame implements ActionListener{
 		j1.add(b);
 		b.addActionListener(this);
 		
+		l6=new JLabel();
+		j1.add(l6);
+		
 		
 		// Consultar
 		
@@ -119,8 +128,8 @@ public class Main19 extends JFrame implements ActionListener{
 		j2.add(b1);
 		b1.addActionListener(this);
 		
-		ln=new JLabel();
-		j2.add(ln);
+		l8=new JLabel();
+		j2.add(l8);
 		
 		l4=new JLabel("Nombre");
 		j2.add(l4);
@@ -137,14 +146,28 @@ public class Main19 extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ConsultaInsertar m= new ConsultaInsertar();
+		ConsultaInsertar m= ConsultaInsertar.getConsultarInsertar();
 		switch(e.getActionCommand()){
 		case "insertar":
-			m.insertar(Integer.parseInt(t2.getText()), t.getText(), t1.getText());
+			try {
+				m.insertar(Integer.parseInt(t2.getText()), t.getText(), t1.getText());
+				l6.setText("El DNI esta introducido "+t2.getText());
+			} catch (DniDuplicado e1) {
+				l6.setText("El DNI esta duplicado como "+t2.getText());
+			}
 		break;
 		case "consultar":
-			String n=m.consultarNombre(Integer.parseInt(t3.getText()));
-			String ape=m.consultarApellido(Integer.parseInt(t3.getText()));
+			String n = "--------";
+			String ape="--------";
+			try {
+				n = m.consultarNombre(Integer.parseInt(t3.getText()));
+				ape=m.consultarApellido(Integer.parseInt(t3.getText()));
+				l8.setText("");
+			} catch (DniNulo e1) {
+				l8.setText("El Dni no esta en la base de datos "+t3.getText());
+			}
+			
+			
 			t4.setText(n);
 			t5.setText(ape);
 		break;
