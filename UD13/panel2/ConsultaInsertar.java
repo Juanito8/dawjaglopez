@@ -10,14 +10,21 @@ import java.sql.SQLException;
 
 public class ConsultaInsertar {
 	public static Connection con=null;
-	
-	public ConsultaInsertar(){
+	private static ConsultaInsertar c;
+	private ConsultaInsertar(){
 		conectar();
+	}
+	public static ConsultaInsertar getConsultarInsertar(){
+		if(c==null){
+			c=new ConsultaInsertar();
+		}
+		return c;
 	}
 
 	public void conectar(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("Driver Cargado");
 		} 
 		catch (Exception e) {
 			System.out.println("Carga");
@@ -26,20 +33,33 @@ public class ConsultaInsertar {
 
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://localhost/programacion", "admin","admin");
+			System.out.println("Base de datos agregada");
 		} 
 		catch (SQLException e) {
 			System.out.println("Conexión");
 			e.printStackTrace();
 		}
 	}
-	public void insertar(int dni, String nombre, String apellido){
+	public void insertar(int dni, String nombre, String apellido) throws DniDuplicado{
 		try {
 			PreparedStatement sentencia = con
 					.prepareStatement("insert into clientes values("+dni+",'"+nombre+"','"+apellido+"')");
 			
-
+			try{
 			sentencia.execute();
+			}
+			catch (SQLException e) {
+				//e.printStackTrace();
+				System.out.println("DNI duplicado");
+				throw (new DniDuplicado());
+			}
+			try{
 			sentencia.close();
+			}
+			catch (SQLException e) {
+				//e.printStackTrace();
+				System.out.println("Error al cerrar la sentencia");
+			}
 			cerrar();
 		} catch (SQLException e) {
 			//e.printStackTrace();
@@ -47,7 +67,7 @@ public class ConsultaInsertar {
 		}
 		
 	}
-	public String consultarNombre(int dni) {
+	public String consultarNombre(int dni) throws DniNulo {
 		String nom ="";
 		try{
 		PreparedStatement sentencia = con
@@ -56,18 +76,26 @@ public class ConsultaInsertar {
 		
 		sentencia.executeQuery();
 		
-		ResultSet r= sentencia.getResultSet();
-		while (r.next()) {
-			nom=r.getString("nombre");
-			//System.out.println(nom);
+		try{
+			ResultSet r= sentencia.getResultSet();
+			if(r.next()){
+				nom=r.getString("nombre");
+			}
+			else{
+				throw (new DniNulo());
+			}
 		}
+		catch (SQLException e){
+			System.out.println("Dni no existe");
+		}
+		sentencia.close();
 		}
 		catch (SQLException e){
 			System.out.println("SQLException");
 		}
 		return nom;
 	}
-	public String consultarApellido(int dni){
+	public String consultarApellido(int dni) throws DniNulo{
 		String ape = "";
 		try{
 		PreparedStatement sentencia = con
@@ -76,11 +104,19 @@ public class ConsultaInsertar {
 		
 		sentencia.executeQuery();
 		
+		try{
 		ResultSet r= sentencia.getResultSet();
-		while (r.next()) {
+		if(r.next()){
 			ape=r.getString("apellidos");
-			//System.out.println(ape);
 		}
+		else{
+			throw (new DniNulo());
+		}
+		}
+		catch (SQLException e){
+			System.out.println("Dni no existe");
+		}
+		sentencia.close();
 		cerrar();
 		}
 		catch (SQLException e){
