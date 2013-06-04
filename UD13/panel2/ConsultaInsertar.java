@@ -8,6 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 public class ConsultaInsertar {
 	public static Connection con=null;
 	private static ConsultaInsertar c;
@@ -123,6 +126,40 @@ public class ConsultaInsertar {
 			System.out.println("SQLException");
 		}
 		return ape;
+	}
+	public DefaultTableModel getConsultaBasedeDatos(){
+		DefaultTableModel tabla=new DefaultTableModel();
+		try{
+			PreparedStatement sentencia = con
+					.prepareStatement("select nombre, apellidos, dni from clientes");
+
+			
+			sentencia.executeQuery();
+			
+			try{
+			Object[] principal={"Nombre","Apellido","DNI"};
+			tabla.setColumnIdentifiers(principal);
+			ResultSet r= sentencia.getResultSet();
+			while(r.next()){
+				Object[] fila=new Object[3];
+				fila[0]=r.getString("nombre");
+				fila[1]=r.getString("apellidos");
+				fila[2]=r.getInt("DNI");
+				
+				tabla.addRow(fila);
+			}
+			
+			}
+			catch (SQLException e){
+				System.out.println("Dni no existe");
+			}
+			sentencia.close();
+			cerrar();
+			}
+			catch (SQLException e){
+				System.out.println("SQLException");
+			}
+			return tabla;
 	}
 	public void cerrar(){
 		try {

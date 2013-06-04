@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class Main19 extends JFrame implements ActionListener{
 	private static int largo;
@@ -38,6 +40,7 @@ public class Main19 extends JFrame implements ActionListener{
 	private JLabel l6;
 	private JLabel l8;
 	private JTable j3;
+	private ConsultaInsertar m= ConsultaInsertar.getConsultarInsertar();
 	public Main19(){
 		centrar();
 		menu();
@@ -73,7 +76,8 @@ public class Main19 extends JFrame implements ActionListener{
 		j2=new JPanel(new GridLayout(4, 2));
 		p.addTab("Consultar", j2);
 		
-		j3=new JTable();
+		DefaultTableModel modeloTabla=m.getConsultaBasedeDatos();
+		j3=new JTable(modeloTabla);
 		p.addTab("Tabla", j3);
 		
 		// Añadir botones y texto
@@ -146,7 +150,6 @@ public class Main19 extends JFrame implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ConsultaInsertar m= ConsultaInsertar.getConsultarInsertar();
 		switch(e.getActionCommand()){
 		case "insertar":
 			try {
