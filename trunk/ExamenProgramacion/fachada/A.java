@@ -1,6 +1,6 @@
 package fachada;
 
-public class A implements IA{
+public class A {
 	public String llamarse(){
 		return "Soy A";
 	}
