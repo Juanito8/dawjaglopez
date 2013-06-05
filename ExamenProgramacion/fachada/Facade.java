@@ -14,17 +14,14 @@ package fachada;
  */
 public class Facade {
 	private B b;
+	private A a;
 	public Facade(){
 		b=new B();
+		a=new A();
 	}
 	
-	public void atencionA(A a){
-		System.out.println("Prueba de A");
-	}
-	public void atencion(A m){
-		if(m instanceof A){
-			atencionA((A)m);
-		}
+	public void llamarseA(){
+		System.out.println(a.llamarseA());
 	}
 	public void llamarse(){
 		b.llamarse();

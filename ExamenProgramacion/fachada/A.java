@@ -1,7 +1,7 @@
 package fachada;
 
 public class A {
-	public String llamarse(){
+	public String llamarseA(){
 		return "Soy A";
 	}
 }
