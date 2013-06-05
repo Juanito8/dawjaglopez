@@ -21,7 +21,7 @@ public class Facade {
 	public void atencionA(A a){
 		System.out.println("Prueba de A");
 	}
-	public void atencion(IA m){
+	public void atencion(A m){
 		if(m instanceof A){
 			atencionA((A)m);
 		}
