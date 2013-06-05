@@ -1,6 +1,6 @@
 package composite;
 
-public class Main {
+public class Main3 {
 	public static void main(String[] args) {
 		Mochila todo=new Mochila();
 		
