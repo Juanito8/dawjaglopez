@@ -12,10 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class Main1 extends JFrame implements ActionListener{
+public class Main1 extends JFrame implements ActionListener, ChangeListener{
 	private static int largo;
 	private static int ancho;
 	private static int tlargo;
@@ -68,6 +70,7 @@ public class Main1 extends JFrame implements ActionListener{
 	public void paneles(){
 
 		p=new JTabbedPane();
+		p.addChangeListener(this);
 		this.add(p);
 		
 		j1=new JPanel(new GridLayout(4, 2));
@@ -175,5 +178,17 @@ public class Main1 extends JFrame implements ActionListener{
 			t5.setText(ape);
 		break;
 		}
+	}
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		//System.out.println("Cambio en las pestañas");
+		if(p.getSelectedIndex()==2){
+			refrescarDatos();
+		}
+	}
+	private void refrescarDatos() {
+		DefaultTableModel modeloTabla=m.getConsultaBasedeDatos();
+		j3.setModel(modeloTabla);
+		repaint();
 	}
 }

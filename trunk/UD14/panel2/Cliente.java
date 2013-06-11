@@ -13,4 +13,15 @@ public class Cliente {
 	public String toString(){
 		return " "+dni+" "+nombre+" "+apellido;
 	}
+	public int getDni(){
+		return this.dni;
+	}
+	
+	public String getNombre(){
+		return this.nombre;
+	}
+	
+	public String getApellido(){
+		return this.apellido;
+	}
 }

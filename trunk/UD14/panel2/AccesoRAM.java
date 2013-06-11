@@ -1,5 +1,7 @@
 package panel2;
 
+import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,20 +34,48 @@ public class AccesoRAM implements IAcessoRN{
 
 	@Override
 	public String consultarNombre(int dni) throws DniNulo {
-		// TODO Auto-generated method stub
-		return null;
+		Object nombre=null;
+		if(c.containsKey(new Integer(dni))){
+			nombre=c.get(dni).getNombre();
+			System.out.println(nombre);
+		}
+		else{
+			throw(new DniNulo());
+		}
+		return (String) nombre;
 	}
 
 	@Override
 	public String consultarApellido(int dni) throws DniNulo {
-		// TODO Auto-generated method stub
-		return null;
+		Object apellido=null;
+		if(c.containsKey(new Integer(dni))){
+			apellido=c.get(dni).getApellido();
+			System.out.println(apellido);
+		}
+		else{
+			throw(new DniNulo());
+		}
+		return (String) apellido;
 	}
 
 	@Override
 	public DefaultTableModel getConsultaBasedeDatos() {
-		// TODO Auto-generated method stub
-		return null;
+		DefaultTableModel tabla=new DefaultTableModel();
+		
+		Object[] principal={"Nombre","Apellido","DNI"};
+		tabla.setColumnIdentifiers(principal);
+		
+		Collection<Cliente> m=c.values();
+		
+		for( Cliente n : m ){
+			Object[] fila=new Object[3];
+			fila[0]=n.getNombre();
+			fila[1]=n.getApellido();
+			fila[2]=n.getDni();
+			
+			tabla.addRow(fila);
+		}
+		return tabla;
 	}
 
 }

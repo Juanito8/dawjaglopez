@@ -19,7 +19,7 @@ public class ConectarMysql {
 		}
 
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost/personas", "root","root");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/personas", "root","iesrey");
 		} 
 		catch (SQLException e) {
 			System.out.println("Conexión");
