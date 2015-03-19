@@ -21,6 +21,8 @@ public class Cliente {
 		return this.nombre;
 	}
 	
-	
+	public String getApellido(){
+		return this.apellido;
+	}
 	
 }
